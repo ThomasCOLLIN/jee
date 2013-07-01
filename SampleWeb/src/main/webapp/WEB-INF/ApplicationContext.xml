@@ -56,6 +56,12 @@
         </property>
     </bean>
     
+    <!-- 
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    <context:annotation-config/>
+    <bean id="peopleDao" class="com.mti.mtispring.db.daos.PeopleDAO"/>
+    -->
+    
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
