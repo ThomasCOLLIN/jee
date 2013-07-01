@@ -4,13 +4,13 @@
  */
 package com.mti.mtispring.db.daos;
 
-import com.mti.mtispring.db.entities.Entity;
+import java.io.Serializable;
 import java.util.List;
 /**
  *
  * @author collin_t
  */
-public  interface IsDAO<T extends Entity> {
+public  interface IsDAO<T extends Serializable> {
     /**
      * create an entity in the db
      * @param e
@@ -33,4 +33,7 @@ public  interface IsDAO<T extends Entity> {
      * retrieve the entities from the db
      */
     public List<T> findAll();
+    
+    public List<T> findByLogin(String login);
+
 }

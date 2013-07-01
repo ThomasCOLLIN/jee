@@ -18,8 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="people")
-public class People extends com.mti.mtispring.db.entities.Entity
-    implements Serializable {
+public class People implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
