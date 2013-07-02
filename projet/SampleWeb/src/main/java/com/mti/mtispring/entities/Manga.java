@@ -12,6 +12,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.CascadeType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -28,13 +34,28 @@ public class Manga implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     long id;
+    
     @Column(name="name")
     String name;
+    
     @Column(name="description")
     String description;
     
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="Chapter",
+            joinColumns = { @JoinColumn(name="idManga")},
+            inverseJoinColumns = {@JoinColumn(name="id")})// pas sur qu'on ait besoin de inverseJoin column...
     List<Chapter> chapters;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="MangaAuthor",
+            joinColumns = { @JoinColumn(name="idManga")},
+            inverseJoinColumns = {@JoinColumn(name="idAuthor")})
     List<Author> authors;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name="MangaGenre",
+            joinColumns = {@JoinColumn(name="idManga")},
+            inverseJoinColumns = {@JoinColumn(name="idGenre")})
     List<Genre> genres;
 
     @XmlAttribute
