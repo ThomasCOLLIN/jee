@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author goldsz_c
  */
 @Entity
-@Table(name="Chapter")
+@Table(name="chapter")
 @XmlRootElement(name = "chapter")
 public class Chapter implements Serializable {
         

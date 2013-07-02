@@ -5,7 +5,6 @@
 package com.mti.mtispring.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author goldsz_c
  */
 @Entity
-@Table(name="Genre")
+@Table(name="genre")
 @XmlRootElement(name = "genre")
 public class Genre implements Serializable {
         @Id

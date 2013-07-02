@@ -2,6 +2,9 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="mti.sample" transaction-type="RESOURCE_LOCAL">
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>com.mti.mtispring.entities.People</class>
+    <class>com.mti.mtispring.entities.Author</class>
+    <class>com.mti.mtispring.entities.Chapter</class>
+    <class>com.mti.mtispring.entities.Genre</class>
+    <class>com.mti.mtispring.entities.Manga</class>
   </persistence-unit>
 </persistence>

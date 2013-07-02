@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author REMI
  */
 @Entity
-@Table(name="Author")
+@Table(name="author")
 @XmlRootElement(name = "author")
 public class Author implements Serializable {
         

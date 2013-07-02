@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author goldsz_c
  */
 @Entity
-@Table(name="Manga")
+@Table(name="manga")
 @XmlRootElement(name = "manga")
 public class Manga implements Serializable {
     
@@ -42,18 +42,18 @@ public class Manga implements Serializable {
     String description;
     
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="Chapter",
+    @JoinTable(name="chapter",
             joinColumns = { @JoinColumn(name="idManga")},
             inverseJoinColumns = {@JoinColumn(name="id")})// pas sur qu'on ait besoin de inverseJoin column...
     List<Chapter> chapters;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="MangaAuthor",
+    @JoinTable(name="mangaauthor",
             joinColumns = { @JoinColumn(name="idManga")},
             inverseJoinColumns = {@JoinColumn(name="idAuthor")})
     List<Author> authors;
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name="MangaGenre",
+    @JoinTable(name="mangagenre",
             joinColumns = {@JoinColumn(name="idManga")},
             inverseJoinColumns = {@JoinColumn(name="idGenre")})
     List<Genre> genres;
