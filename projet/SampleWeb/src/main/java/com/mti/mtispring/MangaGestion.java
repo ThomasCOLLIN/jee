@@ -6,7 +6,7 @@ package com.mti.mtispring;
 
 import com.mti.mtispring.businessManagament.MangaList;
 import com.mti.mtispring.businessManagament.Zip;
-import com.mti.mtispring.db.entities.Manga;
+import com.mti.mtispring.entities.Manga;
 import java.io.Console;
 import java.io.File;
 import java.util.List;

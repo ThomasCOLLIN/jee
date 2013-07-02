@@ -1,6 +1,5 @@
 package com.mti.mtispring.businessManagament;
 
-import com.mti.mtispring.db.entities.*;
 import java.util.List;
 
 public class DownloadManager {

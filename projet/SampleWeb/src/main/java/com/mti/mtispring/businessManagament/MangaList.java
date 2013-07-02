@@ -1,6 +1,6 @@
 package com.mti.mtispring.businessManagament;
 
-import com.mti.mtispring.db.entities.Manga;
+import com.mti.mtispring.entities.Manga;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
