@@ -28,6 +28,10 @@ public class Chapter implements Serializable {
 	long id;
         @Column(name="number")
 	int number;
+        @Column(name="mangaId")
+        long mangaId;
+        @Column(name="file_path")
+        String filePath;
 
 	@XmlAttribute
 	public long getId()
@@ -50,5 +54,23 @@ public class Chapter implements Serializable {
 	{
 		this.number = number;
 	}
+        
+        @XmlAttribute
+        public long getMangaId() {
+            return mangaId;
+        }
+
+        public void setMangaId(long mangaId) {
+            this.mangaId = mangaId;
+        }
+
+        @XmlAttribute
+        public String getFilePath() {
+            return filePath;
+        }
+
+        public void setFilePath(String filePath) {
+            this.filePath = filePath;
+        }
 }
 
