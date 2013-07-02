@@ -29,6 +29,7 @@ public class MangaGestion implements MangaService {
 
     @Override
     public Response getDownload() {
+        // by default: "C:\Program Files\Apache Software Foundation\Apache Tomcat 7.0.27\bin\test\test_archive.zip"
         String path = new File("").getAbsolutePath()+ File.separator + "test" + File.separator + "test_archive.zip";
         File file = new File(path);
         System.out.println("Path: " + path);
