@@ -9,6 +9,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import org.springframework.stereotype.Repository;
 
 /**
  *
@@ -42,9 +43,8 @@ public class PeopleDAO implements IsDAO<People>
 
     @Override
     public List<People> findAll() 
-    {
-        
-        Query res = entityManager.createQuery("SELECT * FROM PEOPLE");
+    {  
+        Query res = entityManager.createQuery("select p from People p");
         List<People> lRes = res.getResultList();
         return lRes;
         //throw new UnsupportedOperationException("Not supported yet.");
