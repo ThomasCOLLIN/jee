@@ -31,7 +31,7 @@ CREATE  TABLE IF NOT EXISTS `mangaDB`.`Chapter` (
   `rank` INT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `mangaId_idx` (`idManga` ASC) ,
-  CONSTRAINT `fk_manga`
+  CONSTRAINT `fk_manga1`
     FOREIGN KEY (`idManga` )
     REFERENCES `mangaDB`.`Manga` (`id` )
     ON DELETE NO ACTION
@@ -72,7 +72,7 @@ CREATE  TABLE IF NOT EXISTS `mangaDB`.`Author` (
   `id` BIGINT NOT NULL AUTO_INCREMENT ,
   `firstname` VARCHAR(50) NOT NULL ,
   `lastname` VARCHAR(50) NOT NULL ,
-  `typeId` MEDIUMTEXT NOT NULL ,
+  `typeId` BIGINT NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `typeId_idx` (`typeId` ASC) ,
   CONSTRAINT `fk_type`
@@ -93,7 +93,7 @@ CREATE  TABLE IF NOT EXISTS `mangaDB`.`MangaGenre` (
   `idGenre` BIGINT NOT NULL ,
   CONSTRAINT `pk_MangaGenre`
     PRIMARY KEY (`idManga`, `idGenre`) ,
-  CONSTRAINT `fk_manga`
+  CONSTRAINT `fk_manga2`
     FOREIGN KEY (`idManga` )
     REFERENCES `mangaDB`.`Manga` (`id` )
     ON DELETE NO ACTION
@@ -116,7 +116,7 @@ CREATE  TABLE IF NOT EXISTS `mangaDB`.`MangaAuthor` (
   `idAuthor` BIGINT NOT NULL ,
   CONSTRAINT `pk_MangaAuthor`
     PRIMARY KEY (`idManga`, `idAuthor`) ,
-  CONSTRAINT `fk_manga`
+  CONSTRAINT `fk_manga3`
     FOREIGN KEY (`idManga` )
     REFERENCES `mangaDB`.`Manga` (`id` )
     ON DELETE NO ACTION
