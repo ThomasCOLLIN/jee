@@ -34,6 +34,11 @@ public  interface IsDAO<T extends Serializable> {
      */
     public List<T> findAll();
     
-    public List<T> findByLogin(String login);
+    /**
+     * retrieve one entity with the good Id
+     * @param id
+     * @return 
+     */
+    public T findById(long id);
 
 }

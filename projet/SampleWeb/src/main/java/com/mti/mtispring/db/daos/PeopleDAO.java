@@ -21,24 +21,21 @@ public class PeopleDAO implements IsDAO<People>
     private EntityManager entityManager;
     
     @Override
-    public void persist(People t) 
+    public void persist(People people) 
     {
-//        emf.persist(t);
-//        throw new UnsupportedOperationException("Not supported yet.");
+        entityManager.persist(people);
     }
 
     @Override
-    public void remove(People t) 
+    public void remove(People people) 
     {
-//        entityManager.remove(t);
-//        throw new UnsupportedOperationException("Not supported yet.");
+        entityManager.remove(people);
     }
 
     @Override
-    public void merge(People t) 
+    public void merge(People people) 
     {
-//        entityManager.merge(t);
-//        throw new UnsupportedOperationException("Not supported yet.");
+        entityManager.merge(people);
     }
 
     @Override
@@ -51,9 +48,9 @@ public class PeopleDAO implements IsDAO<People>
     }
 
     @Override
-    public List<People> findByLogin(String login) 
+    public People findById(long id) 
     {
-        throw new UnsupportedOperationException("Not supported yet.");
+        return entityManager.find(People.class, id);
     }
     
 }

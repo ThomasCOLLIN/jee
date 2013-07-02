@@ -28,7 +28,22 @@ public class HelloWorld implements HelloService {
     @Override
     @Transactional(readOnly=true)
     public String hello(String txt) {
-        List<People> list = dao.findAll();
-        return list.get(0).toString();
+        if (txt.equals("add")) {
+            People p = new People();
+            p.setLogin("chaill_k");
+            dao.persist(p);
+            return "added";
+        } else if (txt.equals("del")) {
+            List<People> list = dao.findAll();
+            dao.remove(list.get(0));
+            return "Deleted";
+        } else {
+            List<People> list = dao.findAll();
+            String s = "";
+            for (People e : list) {
+                s += e.getLogin() + " ";
+            }
+            return s;
+        }
     }
 }
