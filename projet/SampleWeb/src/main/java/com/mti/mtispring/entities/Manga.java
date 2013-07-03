@@ -20,7 +20,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
@@ -112,6 +111,9 @@ public class Manga implements Serializable {
     }
 
     public void addAuthor(Author author) {
+        if (this.authors == null) {
+            this.authors = new ArrayList<Author>();
+        }
         this.authors.add(author);
     }
 
@@ -125,6 +127,9 @@ public class Manga implements Serializable {
     }
 
     public void addGenre(Genre genre) {
+        if (this.authors == null) {
+            this.authors = new ArrayList<Author>();
+        }
         this.genres.add(genre);
     }
 }

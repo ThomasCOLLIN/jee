@@ -2,7 +2,6 @@ package com.mti.mtispring.businessManagament;
 
 import com.mti.mtispring.dataAccess.JpaMangaDao;
 import com.mti.mtispring.entities.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MangaManager {
@@ -10,7 +9,7 @@ public class MangaManager {
     private JpaMangaDao mangaDao = new JpaMangaDao();
     
     public MangaList getAllManga() {
-        List<Manga> mangas = new ArrayList<Manga>();
+        /*List<Manga> mangas = new ArrayList<Manga>();
         Chapter chap = new Chapter();
         chap.setId(0);
         chap.setMangaId(0);
@@ -22,9 +21,9 @@ public class MangaManager {
         test.addChapter(chap);
         mangas.add(test);
         mangas.add(test);
-        MangaList list = new MangaList(mangas);
+        MangaList list = new MangaList(mangas);*/
 
-        return list; //new MangaList(mangaDao.findAll());
+        return new MangaList(mangaDao.findAll());
     }
 
     public Manga getManga(long id) {
