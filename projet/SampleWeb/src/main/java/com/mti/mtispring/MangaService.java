@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.apache.cxf.jaxrs.impl.MediaTypeHeaderProvider;
 import com.mti.mtispring.businessManagament.MangaList;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -32,6 +33,7 @@ public interface MangaService {
     @Path("/manga")
     @GET
     @Produces(MediaType.APPLICATION_XML)
+    @Transactional(readOnly=true)
     public MangaList getManga();
 
 //    @GET
@@ -42,6 +44,7 @@ public interface MangaService {
     @Path("/download")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
+    @Transactional(readOnly=true)
     Response getDownload();
     
 

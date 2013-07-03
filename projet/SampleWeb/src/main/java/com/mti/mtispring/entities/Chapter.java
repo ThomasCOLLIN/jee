@@ -27,7 +27,7 @@ public class Chapter implements Serializable {
 	long id;
         @Column(name="number")
 	int number;
-        @Column(name="mangaId")
+        @Column(name="idManga")
         long mangaId;
         @Column(name="file_path")
         String filePath;

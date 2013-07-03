@@ -5,11 +5,13 @@
 package com.mti.mtispring;
 
 import com.mti.mtispring.businessManagament.*;
+import com.mti.mtispring.dataAccess.MangaDAO;
 import java.io.File;
 import javax.jws.WebService;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.mortbay.log.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -18,6 +20,9 @@ import org.mortbay.log.Log;
 @WebService(endpointInterface = "com.mti.mtispring.MangaService")
 public class MangaGestion implements MangaService {
 
+    @Autowired
+    MangaDAO mangaDAO;
+    
     @Override
     public Response getDownload() {
         String path = new File("").getAbsolutePath()+ File.separator + "test" + File.separator + "test_archive.zip";
@@ -33,7 +38,7 @@ public class MangaGestion implements MangaService {
     
     @Override
     public MangaList getManga() {
-        MangaManager mangaManager = new MangaManager();
+        MangaManager mangaManager = new MangaManager(mangaDAO);
 //        MultivaluedMap<String, String> queryParams = info.getQueryParameters();
         //if (queryParams.isEmpty()) {
             return mangaManager.getAllManga();

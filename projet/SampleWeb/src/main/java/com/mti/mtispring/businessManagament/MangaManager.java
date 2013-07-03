@@ -6,8 +6,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class MangaManager {
-    @Autowired
+
     private MangaDAO mangaDao;
+
+    public MangaManager(MangaDAO mangaDao) {
+        this.mangaDao = mangaDao;
+    }
+    
     
     public MangaList getAllManga() {
         return new MangaList(mangaDao.getAll());

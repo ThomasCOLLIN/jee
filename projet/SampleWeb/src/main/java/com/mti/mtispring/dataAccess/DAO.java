@@ -4,12 +4,9 @@
  */
 package com.mti.mtispring.dataAccess;
 
-import com.mti.mtispring.entities.Genre;
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 /**
  *
