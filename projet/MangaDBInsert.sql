@@ -3,8 +3,8 @@
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mangaDB`;
-INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Hitsugime no Chaika', 'Toru Acura, an incredibly lazy man with some hidden talents, has been forced by his sister Akari to actually go outside and search for work. However, he is in for a big surprise when he meets Chaika Trabant in the forest, and they are suddenly attacked by a monster! How will they survive? Who is this mysterious girl, and why is she being targeted?');
-INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Chocolat', 'Chocolat is a mature comedy series about halforphan Tatsumi Chiyoko whose father was caught in huge debt. Now living with Omugi Matsukichi, an ex-underground king who opened a pastry shop, she gets to know people like Katou Ichigo, an ex-inmate. With people after her father\'s whereabouts, what will happen to her?');
+INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Hitsugime no Chaika', 'Toru Acura, an incredibly lazy man with some hidden talents, has been forced by his sister Akari to actually go outside and search for work.');
+INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Chocolat', 'Chocolat is a mature comedy series about halforphan Tatsumi Chiyoko whose father was caught in huge debt. Now living with Omugi Matsukichi.');
 
 COMMIT;
 
