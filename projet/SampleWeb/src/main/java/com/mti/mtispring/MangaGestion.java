@@ -4,9 +4,8 @@
  */
 package com.mti.mtispring;
 
-import com.mti.mtispring.businessManagament.DownloadManager;
-import com.mti.mtispring.businessManagament.MangaList;
-import com.mti.mtispring.businessManagament.Zip;
+import com.mti.mtispring.businessManagament.*;
+import com.mti.mtispring.dataAccess.MangaDAO;
 import com.mti.mtispring.entities.Manga;
 import java.io.ByteArrayOutputStream;
 import java.io.Console;
@@ -19,15 +18,14 @@ import java.util.List;
 import java.util.Map;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.ws.rs.core.MediaType;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
-import javax.ws.rs.core.MediaType;
 import org.mortbay.log.Log;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -36,6 +34,9 @@ import org.mortbay.log.Log;
 @WebService(endpointInterface = "com.mti.mtispring.MangaService")
 public class MangaGestion implements MangaService {
 
+    @Autowired
+    MangaDAO mangaDAO;
+    
     @Override
     public Response getDownload(HttpServletRequest request) throws Exception {
         DownloadManager downloadManager = new DownloadManager();
@@ -101,15 +102,19 @@ public class MangaGestion implements MangaService {
         return response.build();
         
     }
-  
-
-//    public MangaList getManga(@Context UriInfo info) {
-//        BusinessManagement.MangaManager mangaManager = new BusinessManagement.MangaManager();
+    @Override
+    public MangaList getManga() {
+        MangaManager mangaManager = new MangaManager(mangaDAO);
 //        MultivaluedMap<String, String> queryParams = info.getQueryParameters();
-//        if (queryParams.isEmpty()) {
-//            List<Manga> mangaList = mangaManager.getAllManga();
-//            return mangaList;
-//        }
+        //if (queryParams.isEmpty()) {
+            // /!\ check not empty /!\
+        ArrayList<String> arr = new ArrayList<String>();
+        arr.add("Action");
+        arr.add("Comedy");
+        return mangaManager.getMangaByGenre(arr);
+        
+            //}
+    }
 //        if (!queryParams.get("id").isEmpty()) {
 //            if (queryParams.get("id").size() > 1) {
 //                throw new Exception("Invalid request : id param must be unique");
@@ -147,5 +152,6 @@ public class MangaGestion implements MangaService {
 //        return mangaManager.getMangaByBoth(authors, genres);
 //    }
 //
+
 
 }

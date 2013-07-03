@@ -57,7 +57,10 @@
     </bean>
 
     <!-- add DAOs here else no link. Instanciate them using @autowired -->
-    <!-- bean id="peopleDao" class="com.mti.mtispring.dataAccess.PeopleDAO"/ -->
+    <bean id="mangaDao" class="com.mti.mtispring.dataAccess.MangaDAO" />
+    <bean id="authorDao" class="com.mti.mtispring.dataAccess.AuthorDAO" />
+    <bean id="chapterDao" class="com.mti.mtispring.dataAccess.ChapterDAO" />
+    <bean id="genreDao" class="com.mti.mtispring.dataAccess.GenreDAO" />
     
     <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />

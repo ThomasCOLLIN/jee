@@ -12,7 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -20,15 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name="chapter")
-@XmlRootElement(name = "chapter")
+@XmlType(name = "chapter")
 public class Chapter implements Serializable {
-        
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
 	long id;
         @Column(name="number")
 	int number;
-        @Column(name="mangaId")
+        @Column(name="idManga")
         long mangaId;
         @Column(name="file_path")
         String filePath;
@@ -54,8 +53,7 @@ public class Chapter implements Serializable {
 	{
 		this.number = number;
 	}
-        
-        @XmlAttribute
+
         public long getMangaId() {
             return mangaId;
         }

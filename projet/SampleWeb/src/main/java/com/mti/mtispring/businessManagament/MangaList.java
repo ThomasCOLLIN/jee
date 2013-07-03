@@ -5,12 +5,19 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name = "mangas")
+@XmlRootElement
 public class MangaList {
-
+    public MangaList() {
+        
+    }
+    
+    public MangaList(List<Manga> mangas) {
+        this.mangas = mangas;
+    }
+    
     List<Manga> mangas;
 
-    @XmlElement
+    @XmlElement(name = "manga")
     public List<Manga> getMangas() {
         return this.mangas;
     }

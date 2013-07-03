@@ -6,41 +6,32 @@ package com.mti.mtispring.dataAccess;
 
 import com.mti.mtispring.entities.Manga;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  *
  * @author collin_t
  */
-public class MangaDAO implements IsDAO<Manga> {
-    @PersistenceContext
-    private EntityManager entityManager;
+public class MangaDAO extends DAO<Manga> {
 
     @Override
-    public void persist(Manga manga) {
-        entityManager.persist(manga);
+    public List<Manga> getAll() {
+        Query query = entityManager.createQuery("SELECT m FROM Manga m");
+        return (List<Manga>) query.getResultList();
     }
 
-    @Override
-    public void remove(Manga manga) {
-        entityManager.remove(manga);
+    public Manga findByName(String name) {
+        Query query = entityManager.createQuery("SELECT m FROM Manga m WHERE m.name = " + name);
+        return (Manga) query.getSingleResult();
     }
 
-    @Override
-    public void merge(Manga manga) {
-        entityManager.merge(manga);
+    public List<Manga> findByAuthor(List<String> authors) {
+        Query query = entityManager.createQuery("SELECT m FROM Manga m");
+        return (List<Manga>) query.getResultList();
     }
 
-    @Override
-    public List<Manga> findAll() {
-        Query query = entityManager.createQuery("SELECT * FROM manga");
-        return query.getResultList();
-    }
-
-    @Override
-    public Manga findById(long id) {
-        return entityManager.find(Manga.class, id);
+    public List<Manga> findByGenre(List<String> genres) {
+        Query query = entityManager.createQuery("SELECT m FROM Manga m");
+        return (List<Manga>) query.getResultList();
     }
 }

@@ -1,83 +1,36 @@
 package com.mti.mtispring.businessManagament;
 
-import com.mti.mtispring.entities.Manga;
+import com.mti.mtispring.dataAccess.MangaDAO;
+import com.mti.mtispring.entities.*;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class MangaManager {
+
+    private MangaDAO mangaDao;
+
+    public MangaManager(MangaDAO mangaDao) {
+        this.mangaDao = mangaDao;
+    }
     
-    public List<Manga> getAllManga() {
-        // appel a la dao 
-		/* SELECT
-         Manga.id,
-         Manga.name,
-         Manga.description,
-         Chapter.id,
-         Chapter.number,
-         Author.id,
-         Author.firstname,
-         Author.lastname,
-         Author.type,
-         Genre.id,
-         Genre.name
-         FROM
-         Manga
-         JOIN
-         Chapter
-         ON
-         Chapter.idManga = Manga.id
-         JOIN
-         MangaAuthor
-         ON
-         MangaAuthor.idManga = Manga.id
-         JOIN
-         Author
-         ON
-         Author.id = MangaAuthor.idAuthor
-         JOIN
-         MangaGenre
-         ON
-         MangaGenre.idManga = Manga.id
-         JOIN
-         Genre
-         ON
-         Genre.id = MangaGenre.idGenre
-         ORDER BY
-         Manga.id, Chapter.number;
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
+    
+    public MangaList getAllManga() {
+        return new MangaList(mangaDao.getAll());
     }
 
     public Manga getManga(long id) {
-        /* SAME AS ABOVE + 
-         WHERE
-         Manga.id = id */
-        throw new UnsupportedOperationException("Not supported yet.");
+        return mangaDao.findById(id);
     }
 
-    public List<Manga> getMangaByName(String name) {
-        /* WHERE
-         Manga.name = name*/
-        throw new UnsupportedOperationException("Not supported yet.");
+    public Manga getMangaByName(String name) {
+        return mangaDao.findByName(name);
     }
 
-    public List<Manga> getMangaByAuthors(List<String> authors) {
-        /* WHERE 
-         Authors.lastname IN (dump(authors)) */
-        throw new UnsupportedOperationException("Not supported yet.");
+    public MangaList getMangaByAuthors(List<String> authors) {
+        return new MangaList(mangaDao.findByAuthor(authors));
     }
 
-    public List<Manga> getMangaByGenre(List<String> genres) {
-        /* WHERE
-         Genres.name IN (dump(genres))
-         */
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    public List<Manga> getMangaByBoth(List<String> authors, List<String> genres) {
-        /* WHERE
-         Genres.name IN (dump(genres))
-         AND
-         Authors.name IN (dump(authors)) */
-        throw new UnsupportedOperationException("Not supported yet.");
+    public MangaList getMangaByGenre(List<String> genres) {
+        return new MangaList(mangaDao.findByGenre(genres));
     }
 }

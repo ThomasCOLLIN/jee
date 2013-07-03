@@ -3,8 +3,8 @@
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mangaDB`;
-INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Hitsugime no Chaika', 'Toru Acura, an incredibly lazy man with some hidden talents, has been forced by his sister Akari to actually go outside and search for work. However, he is in for a big surprise when he meets Chaika Trabant in the forest, and they are suddenly attacked by a monster! How will they survive? Who is this mysterious girl, and why is she being targeted?');
-INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Chocolat', 'Chocolat is a mature comedy series about halforphan Tatsumi Chiyoko whose father was caught in huge debt. Now living with Omugi Matsukichi, an ex-underground king who opened a pastry shop, she gets to know people like Katou Ichigo, an ex-inmate. With people after her father\'s whereabouts, what will happen to her?');
+INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Hitsugime no Chaika', 'Toru Acura, an incredibly lazy man with some hidden talents, has been forced by his sister Akari to actually go outside and search for work.');
+INSERT INTO `mangaDB`.`Manga` (`name`, `description`) VALUES ('Chocolat', 'Chocolat is a mature comedy series about halforphan Tatsumi Chiyoko whose father was caught in huge debt. Now living with Omugi Matsukichi.');
 
 COMMIT;
 
@@ -13,8 +13,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mangaDB`;
-INSERT INTO `mangaDB`.`Chapter` (`idManga`, `file_path`, `rank`) VALUES (1, 'http://dl.crazytje.be/dl.php?id=2h2lf5m6c9cv8lk2mka3tv6j37&file=51d1a283-ed80-4e2b-96b3-49fad0359e0c&lid=51d1a283-a22c-4c6a-be24-49fad0359e0c', 16);
-INSERT INTO `mangaDB`.`Chapter` (`idManga`, `file_path`, `rank`) VALUES (2, 'http://dl.crazytje.be/dl.php?id=2h2lf5m6c9cv8lk2mka3tv6j37&file=51d1a275-ef30-4714-b960-4686d0359e0c&lid=51d1a275-1a5c-4bcf-b050-4686d0359e0c', 60);
+INSERT INTO `mangaDB`.`Chapter` (`idManga`, `file_path`, `number`) VALUES (1, 'http://dl.crazytje.be/dl.php?id=2h2lf5m6c9cv8lk2mka3tv6j37&file=51d1a283-ed80-4e2b-96b3-49fad0359e0c&lid=51d1a283-a22c-4c6a-be24-49fad0359e0c', 16);
+INSERT INTO `mangaDB`.`Chapter` (`idManga`, `file_path`, `number`) VALUES (2, 'http://dl.crazytje.be/dl.php?id=2h2lf5m6c9cv8lk2mka3tv6j37&file=51d1a275-ef30-4714-b960-4686d0359e0c&lid=51d1a275-1a5c-4bcf-b050-4686d0359e0c', 60);
 
 COMMIT;
 
@@ -39,8 +39,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `mangaDB`;
-INSERT INTO `mangaDB`.`Type` (`description`) VALUES ('Writter');
-INSERT INTO `mangaDB`.`Type` (`description`) VALUES ('Drawer');
+INSERT INTO `mangaDB`.`Type` (`job`) VALUES ('Writter');
+INSERT INTO `mangaDB`.`Type` (`job`) VALUES ('Drawer');
 
 COMMIT;
 

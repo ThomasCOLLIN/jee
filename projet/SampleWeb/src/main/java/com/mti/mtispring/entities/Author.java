@@ -30,7 +30,7 @@ public class Author implements Serializable {
 	String firstname;
         @Column(name="lastname")
 	String lastname;
-        @Column(name="type")
+        @Column(name="typeId")
 	String type;
 
 	@XmlAttribute
