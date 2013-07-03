@@ -85,7 +85,7 @@ public class Manga implements Serializable {
         this.description = description;
     }
 
-    @XmlElement(name = "chapters")
+    @XmlElement(name = "chapter")
     public List<Chapter> getChapters() {
         return this.chapters;
     }
@@ -101,7 +101,7 @@ public class Manga implements Serializable {
         this.chapters.add(chapter);
     }
 
-    @XmlElement(name = "authors")
+    @XmlElement(name = "author")
     public List<Author> getAuthors() {
         return this.authors;
     }
@@ -117,7 +117,7 @@ public class Manga implements Serializable {
         this.authors.add(author);
     }
 
-    @XmlElement(name = "genres")
+    @XmlElement(name = "genre")
     public List<Genre> getGenres() {
         return this.genres;
     }
