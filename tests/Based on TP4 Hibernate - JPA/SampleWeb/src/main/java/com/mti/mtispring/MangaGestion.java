@@ -12,6 +12,7 @@ import java.io.File;
 import java.util.List;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import javax.ws.rs.core.MediaType;
+import org.mortbay.log.Log;
 
 /**
  *
@@ -28,7 +30,27 @@ import javax.ws.rs.core.MediaType;
 public class MangaGestion implements MangaService {
 
     @Override
-    public Response getDownload() {
+    public Response getDownload(HttpServletRequest request) {
+        String[] values = request.getParameterValues("name");
+        
+        
+        if (values == null)
+        {
+            System.out.println("No parameter 'name'.");
+        }
+        if (values.length == 0) {
+            System.out.println("Parameter 'name' has no value.");
+        }
+        
+        Integer count = 0;
+        for (String string : values) {
+            count++;
+            System.out.println("Parameter " + count + ": " + string);
+        }
+        
+        
+        
+        /* Get and throw file */
         // by default: "C:\Program Files\Apache Software Foundation\Apache Tomcat 7.0.27\bin\test\test_archive.zip"
         String path = new File("").getAbsolutePath()+ File.separator + "test" + File.separator + "test_archive.zip";
         File file = new File(path);

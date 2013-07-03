@@ -1,12 +1,11 @@
 package com.mti.mtispring.businessManagament;
 
-import com.mti.mtispring.dataAccess.JpaMangaDao;
 import com.mti.mtispring.entities.*;
 import java.util.List;
 
 public class MangaManager {
     
-    private JpaMangaDao mangaDao = new JpaMangaDao();
+    private MangaDao mangaDao = new MangaDao();
     
     public MangaList getAllManga() {
         /*List<Manga> mangas = new ArrayList<Manga>();
