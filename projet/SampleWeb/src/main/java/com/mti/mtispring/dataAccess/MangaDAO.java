@@ -21,17 +21,20 @@ public class MangaDAO extends DAO<Manga> {
     }
 
     public Manga findByName(String name) {
-        Query query = entityManager.createQuery("SELECT m FROM Manga m WHERE m.name = " + name);
+        Query query = entityManager.createQuery("SELECT m FROM Manga m WHERE m.name = :name")
+                .setParameter("name", name);
         return (Manga) query.getSingleResult();
     }
 
     public List<Manga> findByAuthor(List<String> authors) {
-        Query query = entityManager.createQuery("SELECT m FROM Manga m");
+        Query query = entityManager.createQuery("SELECT m FROM Manga m JOIN m.authors a WHERE a.lastname IN (:authors) GROUP BY m.id")
+                .setParameter("authors", authors);
         return (List<Manga>) query.getResultList();
     }
 
     public List<Manga> findByGenre(List<String> genres) {
-        Query query = entityManager.createQuery("SELECT m FROM Manga m");
+        Query query = entityManager.createQuery("SELECT m FROM Manga m JOIN m.genres g WHERE g.name IN (:genres) GROUP BY m.id")
+                .setParameter("genres", genres);
         return (List<Manga>) query.getResultList();
     }
 }
