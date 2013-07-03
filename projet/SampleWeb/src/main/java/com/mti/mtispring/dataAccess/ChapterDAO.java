@@ -14,33 +14,21 @@ import javax.persistence.Query;
  *
  * @author collin_t
  */
-public class ChapterDAO implements IsDAO<Chapter> {
-    @PersistenceContext
-    private EntityManager entityManager;
+public class ChapterDAO extends DAO<Chapter> {
 
-    @Override
-    public void persist(Chapter chapter) {
-        entityManager.persist(chapter);
-    }
-
-    @Override
-    public void remove(Chapter chapter) {
-        entityManager.remove(chapter);
-    }
-
-    @Override
-    public void merge(Chapter chapter) {
-        entityManager.merge(chapter);
-    }
-
-    @Override
-    public List<Chapter> findAll() {
-        Query query = entityManager.createQuery("SELECT * FROM author");
+    /**
+     * get all chapter of a manga
+     * @param mangaId id of the manga
+     * @return a list of chapter
+     */
+    public List<Chapter> findAll(long mangaId) {
+        Query query = entityManager.createQuery("SELECT c FROM Chapter c WHERE c.mangaId = " + mangaId);
         return query.getResultList();
     }
 
     @Override
-    public Chapter findById(long id) {
-        return entityManager.find(Chapter.class, id);
+    public List<Chapter> getAll() {
+        Query query = entityManager.createQuery("SELECT c FROM Chapter c");
+        return query.getResultList();
     }
 }

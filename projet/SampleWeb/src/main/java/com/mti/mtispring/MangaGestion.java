@@ -6,7 +6,12 @@ package com.mti.mtispring;
 
 import com.mti.mtispring.businessManagament.MangaList;
 import com.mti.mtispring.businessManagament.Zip;
-import com.mti.mtispring.entities.Manga;
+//import com.mti.mtispring.dataAccess.AuthorDAO;
+//import com.mti.mtispring.dataAccess.ChapterDAO;
+//import com.mti.mtispring.dataAccess.GenreDAO;
+//import com.mti.mtispring.dataAccess.MangaDAO;
+//import com.mti.mtispring.entities.Genre;
+//import com.mti.mtispring.entities.Manga;
 import java.io.Console;
 import java.io.File;
 import java.util.List;
@@ -20,6 +25,8 @@ import javax.ws.rs.core.UriInfo;
 
 import javax.ws.rs.core.MediaType;
 import org.mortbay.log.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -28,16 +35,49 @@ import org.mortbay.log.Log;
 @WebService(endpointInterface = "com.mti.mtispring.MangaService")
 public class MangaGestion implements MangaService {
 
+//    @Autowired
+//    MangaDAO mangaDAO;
+//    @Autowired
+//    ChapterDAO chapterDAO;
+//    @Autowired
+//    AuthorDAO authorDAO;
+//    @Autowired
+//    GenreDAO genreDAO;
+    
+    
     @Override
+//    @Transactional
     public Response getDownload() {
+//        StringBuilder res = new StringBuilder();
+//        boolean containsTest = false;
+//        for (Genre g :genreDAO.getAll()) {
+//            if (g.getName().equals("AAAA")) {
+//                genreDAO.remove(g);
+//                containsTest = true;
+//            } else { 
+//                if (g.getName().equals("GGDG")) {
+//                g.setName("AAAA");
+//                genreDAO.merge(g);
+//                containsTest = true;
+//                }
+//                res = res.append(g.getName()).append(" <br> ");
+//            }
+//        }
+//        if (!containsTest) {
+//            Genre g = new Genre();
+//            g.setName("GGDG");
+//            genreDAO.persist(g);
+//            res = res.append(g.getName()).append(" <br> ");
+//        }
+//        return res.toString();
+
         String path = new File("").getAbsolutePath()+ File.separator + "test" + File.separator + "test_archive.zip";
         Log.debug(path);
         File file = new File(path);
         System.out.println("Path: " + path);
-
         Response.ResponseBuilder response = Response.ok(file, MediaType.APPLICATION_OCTET_STREAM);
-		response.header("Content-Disposition",
-			"attachment; filename=\"toto.zip\"");
+        response.header("Content-Disposition",
+                "attachment; filename=\"toto.zip\"");
         return response.build();
     }
     
