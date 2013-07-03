@@ -7,6 +7,7 @@ package com.mti.mtispring;
 import com.mti.mtispring.businessManagament.*;
 import com.mti.mtispring.dataAccess.MangaDAO;
 import java.io.File;
+import java.util.ArrayList;
 import javax.jws.WebService;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -41,8 +42,13 @@ public class MangaGestion implements MangaService {
         MangaManager mangaManager = new MangaManager(mangaDAO);
 //        MultivaluedMap<String, String> queryParams = info.getQueryParameters();
         //if (queryParams.isEmpty()) {
-            return mangaManager.getAllManga();
-        //}
+            // /!\ check not empty /!\
+        ArrayList<String> arr = new ArrayList<String>();
+        arr.add("Action");
+        arr.add("Comedy");
+        return mangaManager.getMangaByGenre(arr);
+        
+            //}
     }
 //        if (!queryParams.get("id").isEmpty()) {
 //            if (queryParams.get("id").size() > 1) {

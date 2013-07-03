@@ -26,11 +26,11 @@ public class MangaManager {
         return mangaDao.findByName(name);
     }
 
-    public List<Manga> getMangaByAuthors(List<String> authors) {
-        return mangaDao.findByAuthor(authors);
+    public MangaList getMangaByAuthors(List<String> authors) {
+        return new MangaList(mangaDao.findByAuthor(authors));
     }
 
-    public List<Manga> getMangaByGenre(List<String> genres) {
-        return mangaDao.findByGenre(genres);
+    public MangaList getMangaByGenre(List<String> genres) {
+        return new MangaList(mangaDao.findByGenre(genres));
     }
 }
