@@ -4,21 +4,11 @@
  */
 package com.mti.mtispring;
 
-import com.mti.mtispring.businessManagament.MangaList;
-import com.mti.mtispring.businessManagament.Zip;
-import com.mti.mtispring.entities.Manga;
-import java.io.Console;
+import com.mti.mtispring.businessManagament.*;
 import java.io.File;
-import java.util.List;
-import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MultivaluedMap;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
-
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import org.mortbay.log.Log;
 
 /**
@@ -41,15 +31,14 @@ public class MangaGestion implements MangaService {
         return response.build();
     }
     
-  
-
-//    public MangaList getManga(@Context UriInfo info) {
-//        BusinessManagement.MangaManager mangaManager = new BusinessManagement.MangaManager();
+    @Override
+    public MangaList getManga() {
+        MangaManager mangaManager = new MangaManager();
 //        MultivaluedMap<String, String> queryParams = info.getQueryParameters();
-//        if (queryParams.isEmpty()) {
-//            List<Manga> mangaList = mangaManager.getAllManga();
-//            return mangaList;
-//        }
+        //if (queryParams.isEmpty()) {
+            return mangaManager.getAllManga();
+        //}
+    }
 //        if (!queryParams.get("id").isEmpty()) {
 //            if (queryParams.get("id").size() > 1) {
 //                throw new Exception("Invalid request : id param must be unique");
@@ -124,4 +113,5 @@ public class MangaGestion implements MangaService {
 //        File zip = downloadManager.getChapterFile(chapterId);
 //        return zip;
 //    }
+
 }

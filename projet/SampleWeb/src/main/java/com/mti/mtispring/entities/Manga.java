@@ -5,6 +5,7 @@
 package com.mti.mtispring.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,6 +21,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
  *
@@ -27,35 +29,35 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name="manga")
-@XmlRootElement(name = "manga")
+@XmlType(name = "manga")
 public class Manga implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    private long id;
     
     @Column(name="name")
-    String name;
+    private String name;
     
     @Column(name="description")
-    String description;
+    private String description;
     
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name="chapter",
             joinColumns = { @JoinColumn(name="idManga")},
             inverseJoinColumns = {@JoinColumn(name="id")})// pas sur qu'on ait besoin de inverseJoin column...
-    List<Chapter> chapters;
+    private List<Chapter> chapters;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="mangaauthor",
             joinColumns = { @JoinColumn(name="idManga")},
             inverseJoinColumns = {@JoinColumn(name="idAuthor")})
-    List<Author> authors;
+    private List<Author> authors;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="mangagenre",
             joinColumns = {@JoinColumn(name="idManga")},
             inverseJoinColumns = {@JoinColumn(name="idGenre")})
-    List<Genre> genres;
+    private List<Genre> genres;
 
     @XmlAttribute
     public long getId() {
@@ -75,7 +77,7 @@ public class Manga implements Serializable {
         this.name = name;
     }
 
-    @XmlElement
+    @XmlElement(name ="description")
     public String getDescription() {
         return this.description;
     }
@@ -84,7 +86,7 @@ public class Manga implements Serializable {
         this.description = description;
     }
 
-    @XmlElement
+    @XmlElement(name = "chapters")
     public List<Chapter> getChapters() {
         return this.chapters;
     }
@@ -94,10 +96,13 @@ public class Manga implements Serializable {
     }
 
     public void addChapter(Chapter chapter) {
+        if (this.chapters == null) {
+            this.chapters = new ArrayList<Chapter>();
+        }
         this.chapters.add(chapter);
     }
 
-    @XmlElement
+    @XmlElement(name = "authors")
     public List<Author> getAuthors() {
         return this.authors;
     }
@@ -110,7 +115,7 @@ public class Manga implements Serializable {
         this.authors.add(author);
     }
 
-    @XmlElement
+    @XmlElement(name = "genres")
     public List<Genre> getGenres() {
         return this.genres;
     }

@@ -12,6 +12,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import org.apache.cxf.jaxrs.impl.MediaTypeHeaderProvider;
+import com.mti.mtispring.businessManagament.MangaList;
 
 /**
  *
@@ -27,6 +28,11 @@ public interface MangaService {
 //    @Path("/manga")
 //    @Produces("application/xml")
 //    MangaList getManga(@Context UriInfo info);
+    @WebMethod
+    @Path("/manga")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    public MangaList getManga();
 
 //    @GET
 //    @Path("/download")
@@ -37,5 +43,7 @@ public interface MangaService {
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     Response getDownload();
+    
+
 
 }
