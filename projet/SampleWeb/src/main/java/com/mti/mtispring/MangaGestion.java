@@ -4,14 +4,22 @@
  */
 package com.mti.mtispring;
 
+import com.mti.mtispring.businessManagament.DownloadManager;
 import com.mti.mtispring.businessManagament.MangaList;
 import com.mti.mtispring.businessManagament.Zip;
 import com.mti.mtispring.entities.Manga;
+import java.io.ByteArrayOutputStream;
 import java.io.Console;
 import java.io.File;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
@@ -29,18 +37,70 @@ import org.mortbay.log.Log;
 public class MangaGestion implements MangaService {
 
     @Override
-    public Response getDownload() {
-        String path = new File("").getAbsolutePath()+ File.separator + "test" + File.separator + "test_archive.zip";
-        Log.debug(path);
-        File file = new File(path);
-        System.out.println("Path: " + path);
+    public Response getDownload(HttpServletRequest request) throws Exception {
+        DownloadManager downloadManager = new DownloadManager();
+        Enumeration<String> parameters = request.getParameterNames();
+        
+        if (parameters == null) {
+            throw new Exception("Invalid request: cannot download with no argument");
+        }
 
-        Response.ResponseBuilder response = Response.ok(file, MediaType.APPLICATION_OCTET_STREAM);
-		response.header("Content-Disposition",
-			"attachment; filename=\"toto.zip\"");
+        String[] ids = request.getParameterValues("id");
+        
+        if (ids == null) {
+            throw new Exception("Invalid request: A manga id is required.");
+        }
+        if (ids.length > 1) {
+            throw new Exception("Invalid request: id parameter must be unique");
+        }
+        
+        Long mangaId = Long.parseLong(ids[0]);
+        String mangaName = downloadManager.getMangaName(mangaId);
+        
+        ByteArrayOutputStream zipFile = null;
+        List<String> chaptersPath = null;
+        String[] chaptersId = request.getParameterValues("chapterId");
+        /* If all the chapters are requested. */
+        if (chaptersId == null) {
+            chaptersPath = downloadManager.getChaptersPathByManga(mangaId);
+        }
+        else
+        {
+            ArrayList<Long> chaptersIdLong = new ArrayList<Long>();
+            for (String string : chaptersId) {
+                chaptersIdLong.add(Long.parseLong(string));    
+            }
+            chaptersPath = downloadManager.getChaptersPathByManga(mangaId, chaptersIdLong);
+        }
+        
+        if (chaptersPath == null) {
+            throw new Exception("Invalid request: No chapter found.");
+        }
+        
+        Hashtable<String, String> chaptersMap = new Hashtable<String, String>();
+        Integer count = 0;
+        for (String path : chaptersPath) {
+            count++;
+            chaptersMap.put(mangaName + count.toString(), path);
+        }
+        
+        zipFile = Zip.getZip(chaptersMap);
+        
+        byte[] bytearray = null;
+        Response.ResponseBuilder response;
+        if (zipFile != null) {
+            bytearray = zipFile.toByteArray();
+            response= Response.ok(bytearray, MediaType.APPLICATION_OCTET_STREAM);
+                response.header("Content-Disposition", "attachment; filename=\"" + mangaName + ".zip\"");                
+        }
+        else
+        {
+            response = Response.serverError();
+        }
+        
         return response.build();
+        
     }
-    
   
 
 //    public MangaList getManga(@Context UriInfo info) {
@@ -87,41 +147,5 @@ public class MangaGestion implements MangaService {
 //        return mangaManager.getMangaByBoth(authors, genres);
 //    }
 //
-//    public Response getDownload(@Context UriInfo info) {
-//        BusinessManagement.DownloadManager downloadManager = new BusinessManagement.DownloadManager();
-//        MultivaluedMap<String, String> queryParams = info.getQueryParameters();
-//        Long mangaId = null;
-//        if (queryParams.isEmpty()) {
-//            throw new Exception("Invalid request : cannot download with no argument");
-//        }
-//
-//        if (!queryParams.get("id").isEmpty()) {
-//            if (queryParams.get("id").size() > 1) {
-//                throw new Exception("Invalid request : id param must be unique");
-//            }
-//            mangaId = Long.parseLong(queryParams.get("id"));
-//        }
-//
-//        if (queryParams.get("chapter").isEmpty() && queryParams.get("chapterId").isEmpty()) {
-//            File zip = ZipIt.zipeFiles(downloadManager.getChaptersPath(mangaId));
-//            return zip;
-//        }
-//
-//        if (!queryParams.get("chapter").isEmpty()) {
-//            if (mangaId == null) {
-//                throw new Exception("Invalid request : chapter not a valid argument without a manga id");
-//            }
-//            List<String> chapters = queryParams.get("chapter");
-//
-//            List<String> chaptersPath = downloadManager.getChaptersPath(mangaId, chapters);
-//            File zip = Zip.zipFiles(chaptersPath);
-//            return zip;
-//        }
-//        if (queryParams.get("chapterId").isEmpty() || queryParams.get("chapterId").size() > 1) {
-//            throw new Exception("Invalid resquest : chapterId param must be unique");
-//        }
-//        String chapterId = Long.parseLong(queryParams.getFirst("chapterId"));
-//        File zip = downloadManager.getChapterFile(chapterId);
-//        return zip;
-//    }
+
 }
