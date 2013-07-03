@@ -7,6 +7,7 @@ package com.mti.mtispring;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -38,6 +39,6 @@ public interface MangaService {
     @Path("/download")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
-    Response getDownload();
+    Response getDownload(@Context HttpServletRequest request);
 
 }
