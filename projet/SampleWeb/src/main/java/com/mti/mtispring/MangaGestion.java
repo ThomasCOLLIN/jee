@@ -6,7 +6,7 @@ package com.mti.mtispring;
 
 import com.mti.mtispring.businessManagament.MangaList;
 import com.mti.mtispring.businessManagament.Zip;
-import com.mti.mtispring.db.entities.Manga;
+import com.mti.mtispring.entities.Manga;
 import java.io.Console;
 import java.io.File;
 import java.util.List;
@@ -19,6 +19,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import javax.ws.rs.core.MediaType;
+import org.mortbay.log.Log;
 
 /**
  *
@@ -29,8 +30,8 @@ public class MangaGestion implements MangaService {
 
     @Override
     public Response getDownload() {
-        // by default: "C:\Program Files\Apache Software Foundation\Apache Tomcat 7.0.27\bin\test\test_archive.zip"
         String path = new File("").getAbsolutePath()+ File.separator + "test" + File.separator + "test_archive.zip";
+        Log.debug(path);
         File file = new File(path);
         System.out.println("Path: " + path);
 

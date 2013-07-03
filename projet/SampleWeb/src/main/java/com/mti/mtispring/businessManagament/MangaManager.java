@@ -1,6 +1,6 @@
 package com.mti.mtispring.businessManagament;
 
-import com.mti.mtispring.db.entities.*;
+import com.mti.mtispring.entities.Manga;
 import java.util.List;
 
 public class MangaManager {
