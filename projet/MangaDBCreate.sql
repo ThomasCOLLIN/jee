@@ -13,8 +13,8 @@ DROP TABLE IF EXISTS `mangaDB`.`Manga` ;
 
 CREATE  TABLE IF NOT EXISTS `mangaDB`.`Manga` (
   `id` BIGINT NOT NULL AUTO_INCREMENT ,
-  `name` VARCHAR(50) NOT NULL ,
-  `description` VARCHAR(200) NULL ,
+  `name` VARCHAR(200) NOT NULL ,
+  `description` VARCHAR(500) NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
@@ -28,7 +28,7 @@ CREATE  TABLE IF NOT EXISTS `mangaDB`.`Chapter` (
   `id` BIGINT NOT NULL AUTO_INCREMENT ,
   `idManga` BIGINT NOT NULL ,
   `file_path` TEXT NOT NULL ,
-  `rank` INT NOT NULL ,
+  `number` DECIMAL(5,2) NOT NULL ,
   PRIMARY KEY (`id`) ,
   INDEX `mangaId_idx` (`idManga` ASC) ,
   CONSTRAINT `fk_manga1`
@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `mangaDB`.`Type` ;
 
 CREATE  TABLE IF NOT EXISTS `mangaDB`.`Type` (
   `id` BIGINT NOT NULL AUTO_INCREMENT ,
-  `description` VARCHAR(200) NOT NULL ,
+  `job` VARCHAR(50) NOT NULL ,
   PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
