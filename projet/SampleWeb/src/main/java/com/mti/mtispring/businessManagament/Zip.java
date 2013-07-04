@@ -14,6 +14,9 @@ import java.util.zip.ZipOutputStream;
 
 public class Zip {
 
+    /**
+    * retrieve a Zip file containing the chapters having their path in the list.
+    */
     public static ByteArrayOutputStream getZip(Map<String, String> filePaths) {
         try {
             ByteArrayOutputStream fOut = new ByteArrayOutputStream();
@@ -60,6 +63,9 @@ public class Zip {
         }
     }
 
+    /**
+    * retrieve a zip file corresponding to a chapter
+    */
     public static File getZip(String path) {
         try {
             File file = new File(path);

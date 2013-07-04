@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- *
+ * A manga. this class is used to stock mangas in database. It can also convert a manga in XML
  * @author goldsz_c
  */
 @Entity
@@ -58,42 +58,69 @@ public class Manga implements Serializable {
             inverseJoinColumns = {@JoinColumn(name="idGenre")})
     private List<Genre> genres;
 
+    /**
+    * get the id of the manga.
+    */
     @XmlAttribute
     public long getId() {
         return this.id;
     }
 
+    /**
+    * set the id of the manga
+    */
     public void setId(long id) {
         this.id = id;
     }
 
+    /**
+    * get the name of the manga
+    */
     @XmlAttribute
     public String getName() {
         return this.name;
     }
 
+    /**
+    * set the name of the manga
+    */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+    * get a description of the manga
+    */
     @XmlElement(name ="description")
     public String getDescription() {
         return this.description;
     }
 
+    /**
+    * set the description of the manga
+    */
     public void setDescription(String description) {
         this.description = description;
     }
 
+    /**
+    * get all the available chapters for this manga
+    */
     @XmlElement(name = "chapter")
     public List<Chapter> getChapters() {
         return this.chapters;
     }
 
+    /**
+    * set the chapter list
+    */
     public void setChapters(List<Chapter> chapters) {
         this.chapters = chapters;
     }
 
+    /**
+    * add a chapter
+    */
     public void addChapter(Chapter chapter) {
         if (this.chapters == null) {
             this.chapters = new ArrayList<Chapter>();
@@ -101,15 +128,24 @@ public class Manga implements Serializable {
         this.chapters.add(chapter);
     }
 
+    /**
+    * get the author(s) of the manga.
+    */
     @XmlElement(name = "author")
     public List<Author> getAuthors() {
         return this.authors;
     }
 
+    /**
+    * set the author(s) of the manga
+    */
     public void setAuthors(List<Author> authors) {
         this.authors = authors;
     }
 
+    /**
+    * add an author to the manga
+    */
     public void addAuthor(Author author) {
         if (this.authors == null) {
             this.authors = new ArrayList<Author>();
@@ -117,15 +153,24 @@ public class Manga implements Serializable {
         this.authors.add(author);
     }
 
+    /**
+    * get the genres
+    */
     @XmlElement(name = "genre")
     public List<Genre> getGenres() {
         return this.genres;
     }
 
+    /**
+    * set the genres
+    */
     public void setGenres(List<Genre> genres) {
         this.genres = genres;
     }
 
+    /**
+    * add a genre
+    */
     public void addGenre(Genre genre) {
         if (this.authors == null) {
             this.authors = new ArrayList<Author>();

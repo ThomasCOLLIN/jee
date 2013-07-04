@@ -34,7 +34,11 @@ public class MangaGestion implements MangaService {
     MangaDAO mangaDAO;
     @Autowired
     ChapterDAO chapterDAO;
-    
+
+    /**
+     * Webservice allowing to download a manga
+     * syntax : {url}/rest/download/?id={mangaid}[&chapterId={chapterid}]+
+     */
     @Override
     public Response getDownload(HttpServletRequest request) {
         DownloadManager downloadManager = new DownloadManager(mangaDAO, chapterDAO);
@@ -118,7 +122,16 @@ public class MangaGestion implements MangaService {
                     .entity("Impossible to generate the file.").build();
         }
     }
-    
+
+
+    /**
+    * Webservice allowing to search for one or more mangas in the database
+    * syntax : {url} + 
+    *       /manga?id={id} -> get manga by its Id
+    *       /manga?name={name} - get a manga by its name
+    *       /manga?author={author}[&author={author}]* get mangas created by at least one of the authors
+    *       /manga?genre={genre}[&genre={genre}]* get mangas having at least one genre in the list
+    */
     @Override
     public Response getManga(HttpServletRequest request) throws Exception {
         MangaManager mangaManager = new MangaManager(mangaDAO);
