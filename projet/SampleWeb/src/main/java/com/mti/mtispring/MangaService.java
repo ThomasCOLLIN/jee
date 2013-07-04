@@ -21,21 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 @WebService
 @Path("/")
 public interface MangaService {
-
-//    @GET
-//    @Path("/manga")
-//    @Produces("application/xml")
-//    MangaList getManga(@Context UriInfo info);
-    @WebMethod
-    @Path("/manga")
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    @Transactional(readOnly=true)
-    public MangaList getManga();
-
     @WebMethod
     @Path("/download")
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response getDownload(@Context HttpServletRequest request);
+    
+    @WebMethod
+    @Path("/manga")
+    @GET
+    @Produces(MediaType.APPLICATION_XML)
+    @Transactional(readOnly=true)
+    public MangaList getManga(@Context HttpServletRequest request) throws Exception;
+
+    
 }

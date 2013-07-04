@@ -21,8 +21,8 @@ public class MangaManager {
         return mangaDao.findById(id);
     }
 
-    public Manga getMangaByName(String name) {
-        return mangaDao.findByName(name);
+    public MangaList getMangaByName(String name) {
+        return new MangaList(mangaDao.findByName(name));
     }
 
     public MangaList getMangaByAuthors(List<String> authors) {

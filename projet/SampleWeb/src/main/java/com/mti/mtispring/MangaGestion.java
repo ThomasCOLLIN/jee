@@ -8,8 +8,10 @@ import com.mti.mtispring.businessManagament.*;
 import com.mti.mtispring.dataAccess.ChapterDAO;
 import com.mti.mtispring.dataAccess.MangaDAO;
 import com.mti.mtispring.entities.Chapter;
+import com.mti.mtispring.entities.Manga;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -115,58 +117,61 @@ public class MangaGestion implements MangaService {
             return Response.status(Status.INTERNAL_SERVER_ERROR).type(MediaType.TEXT_HTML_TYPE)
                     .entity("Impossible to generate the file.").build();
         }
-
-
     }
 
     @Override
-    public MangaList getManga() {
+    public MangaList getManga(HttpServletRequest request) throws Exception {
         MangaManager mangaManager = new MangaManager(mangaDAO);
-//        MultivaluedMap<String, String> queryParams = info.getQueryParameters();
-        //if (queryParams.isEmpty()) {
-        // /!\ check not empty /!\
-        ArrayList<String> arr = new ArrayList<String>();
-        arr.add("Action");
-        arr.add("Comedy");
-        return mangaManager.getMangaByGenre(arr);
+        Enumeration<String> parameters = request.getParameterNames();
 
-        //}
+        if (!parameters.hasMoreElements()) {
+            throw new Exception("Invalid request : No arguments.");
+        }
+        if (request.getParameterMap().size() > 1) {
+            throw new Exception("Invalid request : Too many arguments.");
+        }
+        
+        String[] ids = request.getParameterValues("id");
+        String[] names = request.getParameterValues("name");
+        String[] authors = request.getParameterValues("author");
+        String[] genres = request.getParameterValues("genre");
+
+        if (ids != null) {
+            if (ids.length > 1) {
+                throw new Exception("Invalid request : The parameter 'id' must be unique.");
+            }
+            try {
+                long id;
+                id = Long.parseLong(ids[0]);
+                Manga manga = mangaManager.getManga(id);
+                if (manga == null) {
+                    throw new Exception("Invalid request : Manga not found.");
+                }
+                List<Manga> mangas = new ArrayList<Manga>();
+                mangas.add(manga);
+                return new MangaList(mangas);
+
+            } catch (NumberFormatException e) {
+                throw new Exception("Invalid request : The parameter 'id' must be an integer.");
+            }
+        } else if (names != null) {
+            if (names.length > 1) {
+                throw new Exception("Invalid request : The parameter 'name' must be unique.");
+            }
+            return mangaManager.getMangaByName(names[0]);
+            
+        } else if (authors != null) {
+            List<String> authorsList = new ArrayList<String>();
+            authorsList.addAll(Arrays.asList(authors));
+            
+            return mangaManager.getMangaByAuthors(authorsList);
+        } else if (genres != null) {
+            List<String> genresList = new ArrayList<String>();
+            genresList.addAll(Arrays.asList(genres));
+            
+            return mangaManager.getMangaByGenre(genresList);
+        } else {
+            throw new Exception("Invalid request : Invalid parameter.");
+        }
     }
-//        if (!queryParams.get("id").isEmpty()) {
-//            if (queryParams.get("id").size() > 1) {
-//                throw new Exception("Invalid request : id param must be unique");
-//            }
-//            Long id = Long.parseLong(queryParams.getFirst("id"));
-//            Manga manga = mangaManager.getManga(id);
-//
-//            if (queryParams.size() != 1) {
-//                throw new Exception("Invalid request : contains unknown parameters");
-//            }
-//            mangaList.add(manga);
-//            return mangaList;
-//        }
-//        if (!queryParams.get("name").isEmpty()) {
-//            if (queryParams.get("name").size() > 1) {
-//                throw new Exception("Invalid request : name param must be unique");
-//            }
-//            String name = queryParams.getFirst("name");
-//            List<Manga> mangaList = mangaManager.getMangaByName(name);
-//            return mangaList;
-//        }
-//
-//        List<String> genres = queryParams.get("genre");
-//        List<String> authors = queryParams.get("author");
-//
-//        if (genres.isEmpty() && authors.isEmpty()) {
-//            throw new Exception("Invalid request : contains unknown parameters");
-//        }
-//        if (genres.isEmpty()) {
-//            return mangaManager.getMangaByAuthors(authors);
-//        }
-//        if (authors.isEmpty()) {
-//            return mangaManager.getMangaByGenres(genres);
-//        }
-//        return mangaManager.getMangaByBoth(authors, genres);
-//    }
-//
 }

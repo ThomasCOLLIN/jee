@@ -30,10 +30,11 @@ public class MangaDAO extends DAO<Manga> {
         return (Manga) query.getSingleResult();
     }
     
-    public Manga findByName(String name) {
-        Query query = entityManager.createQuery("SELECT m FROM Manga m WHERE m.name = :name")
+    public List<Manga> findByName(String name) {
+        name = "%" + name + "%";
+        Query query = entityManager.createQuery("SELECT m FROM Manga m WHERE m.name LIKE :name")
                 .setParameter("name", name);
-        return (Manga) query.getSingleResult();
+        return (List<Manga>) query.getResultList();
     }
 
     public List<Manga> findByAuthor(List<String> authors) {
