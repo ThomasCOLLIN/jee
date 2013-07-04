@@ -8,26 +8,17 @@ import com.mti.mtispring.businessManagament.*;
 import com.mti.mtispring.dataAccess.ChapterDAO;
 import com.mti.mtispring.dataAccess.MangaDAO;
 import com.mti.mtispring.entities.Chapter;
-import com.mti.mtispring.entities.Manga;
 import java.io.ByteArrayOutputStream;
-import java.io.Console;
-import java.io.File;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
-import javax.jws.WebParam;
 import javax.jws.WebService;
-import javax.ws.rs.core.MediaType;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MultivaluedMap;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import org.mortbay.log.Log;
+import javax.ws.rs.core.Response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -41,87 +32,105 @@ public class MangaGestion implements MangaService {
     MangaDAO mangaDAO;
     @Autowired
     ChapterDAO chapterDAO;
-    
+
     @Override
     public Response getDownload(HttpServletRequest request) throws Exception {
         DownloadManager downloadManager = new DownloadManager(mangaDAO, chapterDAO);
         Enumeration<String> parameters = request.getParameterNames();
-        
-        if (parameters == null) {
-            throw new Exception("Invalid request: cannot download with no argument");
+        int parameterNumber;
+
+        if (!parameters.hasMoreElements() || ((parameterNumber = request.getParameterMap().size()) > 2)) {
+            return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                    .entity("Request must be: /download?id={mangaid}[&chapterId={chapterid}...]").build();
         }
 
         String[] ids = request.getParameterValues("id");
-        
+
         if (ids == null) {
-            throw new Exception("Invalid request: A manga id is required.");
+            return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                    .entity("Request must be: /download?id={mangaid}[&chapterId={chapterid}...]").build();
         }
         if (ids.length > 1) {
-            throw new Exception("Invalid request: id parameter must be unique");
+            return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                    .entity("The parameter 'id' must be unique.").build();
         }
-        
-        Long mangaId = Long.parseLong(ids[0]);
+
+        long mangaId = 0;
+        try {
+            mangaId = Long.parseLong(ids[0]);
+        } catch (NumberFormatException e) {
+            return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                    .entity("The parameter 'id' must be an integer.").build();
+        }
         String mangaName = downloadManager.getMangaName(mangaId);
-        
+
         if (mangaName == null) {
-            throw new Exception("Invalid request: The manga doesn't exist.");
+            return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                    .entity("Invalid request: The manga doesn't exist.").build();
         }
-        
+
         ByteArrayOutputStream zipFile;
         List<Chapter> chapters;
         String[] chaptersId = request.getParameterValues("chapterId");
         /* If all the chapters are requested. */
         if (chaptersId == null) {
-            chapters = downloadManager.getChaptersByManga(mangaId);
-        }
-        else
-        {
-            ArrayList<Long> chaptersIdLong = new ArrayList<Long>();
-            for (String string : chaptersId) {
-                chaptersIdLong.add(Long.parseLong(string));    
+            if (parameterNumber >= 2) {
+                return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                        .entity("Request must be: /download?id={mangaid}[&chapterId={chapterid}...]").build();
             }
+            chapters = downloadManager.getChaptersByManga(mangaId);
+        } else {
+            ArrayList<Long> chaptersIdLong = new ArrayList<Long>();
+            try {
+                for (String string : chaptersId) {
+                    chaptersIdLong.add(Long.parseLong(string));
+                }
+            } catch (Exception e) {
+                return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                        .entity("The parameter 'chapterId' must be an integer.").build();
+            }
+
             chapters = downloadManager.getChaptersByManga(mangaId, chaptersIdLong);
         }
-        
-        if (chapters == null) {
-            throw new Exception("Invalid request: No chapter found.");
+
+        if (chapters.isEmpty()) {
+            return Response.status(Status.BAD_REQUEST).type(MediaType.TEXT_HTML_TYPE)
+                    .entity("Invalid request: No chapter found.").build();
         }
-        
+
         Map<String, String> chapterMap = new HashMap<String, String>();
-        
+
         for (Chapter chapter : chapters) {
             chapterMap.put(mangaName + "-" + ((Long) chapter.getNumber()).toString(), chapter.getFilePath());
         }
-        
+
         zipFile = Zip.getZip(chapterMap);
-        
+
         byte[] bytearray;
-        Response.ResponseBuilder response;
         if (zipFile != null) {
             bytearray = zipFile.toByteArray();
-            response= Response.ok(bytearray, MediaType.APPLICATION_OCTET_STREAM);
-                response.header("Content-Disposition", "attachment; filename=\"" + mangaName + ".zip\"");                
+            return Response.ok(bytearray, MediaType.APPLICATION_OCTET_STREAM)
+                    .header("Content-Disposition", "attachment; filename=\"" + mangaName + ".zip\"").build();
+        } else {
+            return Response.status(Status.INTERNAL_SERVER_ERROR).type(MediaType.TEXT_HTML_TYPE)
+                    .entity("Impossible to generate the file.").build();
         }
-        else
-        {
-            response = Response.serverError();
-        }
-        
-        return response.build();
-        
+
+
     }
+
     @Override
     public MangaList getManga() {
         MangaManager mangaManager = new MangaManager(mangaDAO);
 //        MultivaluedMap<String, String> queryParams = info.getQueryParameters();
         //if (queryParams.isEmpty()) {
-            // /!\ check not empty /!\
+        // /!\ check not empty /!\
         ArrayList<String> arr = new ArrayList<String>();
         arr.add("Action");
         arr.add("Comedy");
         return mangaManager.getMangaByGenre(arr);
-        
-            //}
+
+        //}
     }
 //        if (!queryParams.get("id").isEmpty()) {
 //            if (queryParams.get("id").size() > 1) {
@@ -160,6 +169,4 @@ public class MangaGestion implements MangaService {
 //        return mangaManager.getMangaByBoth(authors, genres);
 //    }
 //
-
-
 }
