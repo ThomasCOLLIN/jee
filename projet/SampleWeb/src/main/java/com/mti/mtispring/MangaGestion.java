@@ -34,7 +34,7 @@ public class MangaGestion implements MangaService {
     ChapterDAO chapterDAO;
 
     @Override
-    public Response getDownload(HttpServletRequest request) throws Exception {
+    public Response getDownload(HttpServletRequest request) {
         DownloadManager downloadManager = new DownloadManager(mangaDAO, chapterDAO);
         Enumeration<String> parameters = request.getParameterNames();
         int parameterNumber;

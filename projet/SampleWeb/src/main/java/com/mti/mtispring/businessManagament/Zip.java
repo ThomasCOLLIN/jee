@@ -14,7 +14,7 @@ import java.util.zip.ZipOutputStream;
 
 public class Zip {
 
-    public static ByteArrayOutputStream getZip(Map<String, String> filePaths) throws Exception {
+    public static ByteArrayOutputStream getZip(Map<String, String> filePaths) {
         try {
             ByteArrayOutputStream fOut = new ByteArrayOutputStream();
             ZipOutputStream zOut = new ZipOutputStream(fOut);
@@ -35,13 +35,11 @@ public class Zip {
                 /* Create a new entry with a name for the file. */
                 zOut.putNextEntry(new ZipEntry(fileName + ".zip"));
                 int length;
-                while ((length = fIn.read(buffer)) > 0) {
+                while ((length = fIn.read(buffer)) != -1) {
                     zOut.write(buffer, 0, length);
                 }
-
                 zOut.closeEntry();
                 fIn.close();
-
             }
             zOut.close();
             fOut.close();
