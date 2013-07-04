@@ -32,7 +32,7 @@ public interface MangaService {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     @Transactional(readOnly=true)
-    public MangaList getManga(@Context HttpServletRequest request) throws Exception;
+    public Response getManga(@Context HttpServletRequest request) throws Exception;
 
     
 }
