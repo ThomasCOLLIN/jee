@@ -7,19 +7,29 @@ package com.mti.mtispring.dataAccess;
 import com.mti.mtispring.entities.Manga;
 import java.util.List;
 import javax.persistence.Query;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
  * @author collin_t
- */
+ */ 
 public class MangaDAO extends DAO<Manga> {
-
+    
     @Override
     public List<Manga> getAll() {
         Query query = entityManager.createQuery("SELECT m FROM Manga m");
         return (List<Manga>) query.getResultList();
     }
-
+    
+    @Override
+    public Manga findById(long id){
+        Query query;
+        query = entityManager.createQuery("SELECT m FROM Manga m WHERE m.id LIKE :mangaId")
+                             .setParameter("mangaId", id);
+                
+        return (Manga) query.getSingleResult();
+    }
+    
     public Manga findByName(String name) {
         Query query = entityManager.createQuery("SELECT m FROM Manga m WHERE m.name = :name")
                 .setParameter("name", name);

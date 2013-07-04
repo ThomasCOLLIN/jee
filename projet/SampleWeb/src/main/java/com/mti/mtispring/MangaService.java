@@ -38,7 +38,4 @@ public interface MangaService {
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     Response getDownload(@Context HttpServletRequest request) throws Exception;
-    
-
-
 }

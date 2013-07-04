@@ -6,6 +6,7 @@ package com.mti.mtispring;
 
 import com.mti.mtispring.businessManagament.*;
 import com.mti.mtispring.dataAccess.MangaDAO;
+import com.mti.mtispring.entities.Chapter;
 import com.mti.mtispring.entities.Manga;
 import java.io.ByteArrayOutputStream;
 import java.io.Console;
@@ -58,12 +59,16 @@ public class MangaGestion implements MangaService {
         Long mangaId = Long.parseLong(ids[0]);
         String mangaName = downloadManager.getMangaName(mangaId);
         
-        ByteArrayOutputStream zipFile = null;
-        List<String> chaptersPath = null;
+        if (mangaName == null) {
+            throw new Exception("Invalid request: The manga doesn't exist.");
+        }
+        
+        ByteArrayOutputStream zipFile;
+        List<Chapter> chapters;
         String[] chaptersId = request.getParameterValues("chapterId");
         /* If all the chapters are requested. */
         if (chaptersId == null) {
-            chaptersPath = downloadManager.getChaptersPathByManga(mangaId);
+            chapters = downloadManager.getChaptersByManga(mangaId);
         }
         else
         {
@@ -71,23 +76,22 @@ public class MangaGestion implements MangaService {
             for (String string : chaptersId) {
                 chaptersIdLong.add(Long.parseLong(string));    
             }
-            chaptersPath = downloadManager.getChaptersPathByManga(mangaId, chaptersIdLong);
+            chapters = downloadManager.getChaptersByManga(mangaId, chaptersIdLong);
         }
         
-        if (chaptersPath == null) {
+        if (chapters == null) {
             throw new Exception("Invalid request: No chapter found.");
         }
         
         Hashtable<String, String> chaptersMap = new Hashtable<String, String>();
-        Integer count = 0;
-        for (String path : chaptersPath) {
-            count++;
-            chaptersMap.put(mangaName + count.toString(), path);
+        
+        for (Chapter chapter : chapters) {
+            chaptersMap.put(mangaName + "-" + ((Long) chapter.getNumber()).toString(), chapter.getFilePath());
         }
         
         zipFile = Zip.getZip(chaptersMap);
         
-        byte[] bytearray = null;
+        byte[] bytearray;
         Response.ResponseBuilder response;
         if (zipFile != null) {
             bytearray = zipFile.toByteArray();
