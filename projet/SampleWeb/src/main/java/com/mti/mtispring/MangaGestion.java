@@ -5,6 +5,7 @@
 package com.mti.mtispring;
 
 import com.mti.mtispring.businessManagament.*;
+import com.mti.mtispring.dataAccess.ChapterDAO;
 import com.mti.mtispring.dataAccess.MangaDAO;
 import com.mti.mtispring.entities.Chapter;
 import com.mti.mtispring.entities.Manga;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -37,10 +39,12 @@ public class MangaGestion implements MangaService {
 
     @Autowired
     MangaDAO mangaDAO;
+    @Autowired
+    ChapterDAO chapterDAO;
     
     @Override
     public Response getDownload(HttpServletRequest request) throws Exception {
-        DownloadManager downloadManager = new DownloadManager();
+        DownloadManager downloadManager = new DownloadManager(mangaDAO, chapterDAO);
         Enumeration<String> parameters = request.getParameterNames();
         
         if (parameters == null) {
@@ -83,13 +87,13 @@ public class MangaGestion implements MangaService {
             throw new Exception("Invalid request: No chapter found.");
         }
         
-        Hashtable<String, String> chaptersMap = new Hashtable<String, String>();
+        Map<String, String> chapterMap = new HashMap<String, String>();
         
         for (Chapter chapter : chapters) {
-            chaptersMap.put(mangaName + "-" + ((Long) chapter.getNumber()).toString(), chapter.getFilePath());
+            chapterMap.put(mangaName + "-" + ((Long) chapter.getNumber()).toString(), chapter.getFilePath());
         }
         
-        zipFile = Zip.getZip(chaptersMap);
+        zipFile = Zip.getZip(chapterMap);
         
         byte[] bytearray;
         Response.ResponseBuilder response;

@@ -8,6 +8,14 @@ import java.util.List;
 
 public class DownloadManager {
 
+    private MangaDAO mangaDAO;
+    private ChapterDAO chapterDAO;
+
+    public DownloadManager(MangaDAO mangaDAO, ChapterDAO chapterDAO) {
+        this.mangaDAO = mangaDAO;
+        this.chapterDAO = chapterDAO;
+    }
+    
     public List<String> getManga(long id) {
         /* SELECT
          Chapter.file_path
@@ -19,7 +27,6 @@ public class DownloadManager {
     }
 
     public String getMangaName(long mangaId){
-        MangaDAO mangaDAO =  new MangaDAO();
         Manga manga = mangaDAO.findById(mangaId);
         
         return manga != null ? manga.getName() : null;
@@ -37,15 +44,10 @@ public class DownloadManager {
     
     public List<Chapter> getChaptersByManga(long mangaId, List<Long> chaptersId)
     {
-        ChapterDAO chapterDAO =  new ChapterDAO();
-        
         return chapterDAO.findByMangaId(mangaId, chaptersId);
     }
     
     public List<Chapter> getChaptersByManga(long mangaId){
-        
-        ChapterDAO chapterDAO =  new ChapterDAO();
-        
         return chapterDAO.findByMangaId(mangaId);
     }
 }

@@ -3,7 +3,6 @@ package com.mti.mtispring.businessManagament;
 import com.mti.mtispring.dataAccess.MangaDAO;
 import com.mti.mtispring.entities.*;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public class MangaManager {
 
