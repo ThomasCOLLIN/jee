@@ -15,60 +15,84 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- *
+ *A chapter of a manga. Chapters can be downloaded by a webservice. It can be translated as a XML
  * @author goldsz_c
  */
 @Entity
 @Table(name="chapter")
 @XmlType(name = "chapter")
 public class Chapter implements Serializable {
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	long id;
-        @Column(name="number")
+    @Column(name="number")
 	int number;
-        @Column(name="idManga")
-        long mangaId;
-        @Column(name="file_path")
-        String filePath;
+    @Column(name="idManga")
+    long mangaId;
+    @Column(name="file_path")
+    String filePath;
 
+    /**
+    * get the chapter id
+    */
 	@XmlAttribute
 	public long getId()
 	{
 		return this.id;
 	}
 
+	/**
+	* set the chapter id
+	*/
 	public void setId(long id)
 	{
 		this.id = id;
 	}
 
+	/**
+	* get the number of the chapter. Unique for a manga
+	*/
 	@XmlAttribute
 	public long getNumber()
 	{
 		return this.number;
 	}
 
+	/**
+	* set the number of a chapter
+	*/
 	public void setNumber(int number)
 	{
 		this.number = number;
 	}
 
-        public long getMangaId() {
-            return mangaId;
-        }
+	/**
+	* get the id of the manga the chapter belongs to
+	*/
+    public long getMangaId() {
+        return mangaId;
+    }
 
-        public void setMangaId(long mangaId) {
-            this.mangaId = mangaId;
-        }
+    /**
+    * set the id of the manga the chapter belongs to
+    */
+    public void setMangaId(long mangaId) {
+        this.mangaId = mangaId;
+    }
 
-        @XmlAttribute
-        public String getFilePath() {
-            return filePath;
-        }
+    /**
+    * get the path of the file containing the chapter on the server
+    */
+    @XmlAttribute
+    public String getFilePath() {
+        return filePath;
+    }
 
-        public void setFilePath(String filePath) {
-            this.filePath = filePath;
-        }
+    /**
+    * set the path of the file containing the chapter on the server
+    */
+    public void setFilePath(String filePath) {
+        this.filePath = filePath;
+    }
 }
 
