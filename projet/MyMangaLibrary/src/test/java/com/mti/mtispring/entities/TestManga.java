@@ -24,6 +24,61 @@ public class TestManga extends TestCase {
         return new TestSuite(TestManga.class);
     }
     
+    public void testNull()
+    {
+        Manga manga = new Manga();
+        assertNotNull(manga);
+    }
+    
+    public void testId(){
+        Manga manga = new Manga();
+        manga.setId(1);
+        assertEquals(manga.getId(), 1);
+    }
+    
+    public void testName(){
+        Manga manga = new Manga();
+        manga.setName("name");
+        assertEquals(manga.getName(), "name");
+    }
+    
+    public void testDescription()
+    {
+        Manga manga = new Manga();
+        manga.setDescription("description");
+        assertEquals(manga.getDescription(), "description");
+    }
+    
+    public void testGenre()
+    {
+        Manga manga = new Manga();
+        Genre genre = new Genre();
+        List<Genre> genres = new ArrayList<Genre>();
+        genres.add(genre);
+        manga.setGenres(genres);
+        assertEquals(manga.getGenres(), genres);
+    }
+    
+    public void testAuthor()
+    {
+        Manga manga = new Manga();
+        Author author = new Author();
+        List<Author> authors = new ArrayList<Author>();
+        authors.add(author);
+        manga.setAuthors(authors);
+        assertEquals(manga.getAuthors(), authors);
+    }
+    
+    public void testChapter()
+    {
+        Manga manga = new Manga();
+        Chapter chapter = new Chapter();
+        List<Chapter> chapters = new ArrayList<Chapter>();
+        chapters.add(chapter);
+        manga.setChapters(chapters);
+        assertEquals(manga.getChapters(), chapters);
+    }
+    
     public void testFullManga()
     {
         Manga manga = new Manga();

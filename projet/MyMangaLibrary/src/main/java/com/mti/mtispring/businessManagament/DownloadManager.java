@@ -21,16 +21,6 @@ public class DownloadManager {
         this.chapterDAO = chapterDAO;
     }
 
-    public List<String> getManga(long id) {
-        /* SELECT
-         Chapter.file_path
-         FROM
-         Chapter
-         WHERE
-         Chapter.idManga = id */
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     /**
      * get the name of a manga
      * @param mangaId id of the manga
@@ -45,17 +35,7 @@ public class DownloadManager {
             return null;
         }
     }
-
-    public String getChapter(long id) {
-        /* SELECT
-         Chapter.file_path
-         FROM
-         Chapter
-         WHERE
-         Chapter.id = id; */
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
+    
     /**
      * return a list of chapter from one manga
      * @param mangaId the id of the manga

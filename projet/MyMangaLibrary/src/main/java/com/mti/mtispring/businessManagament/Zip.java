@@ -54,15 +54,15 @@ public class Zip {
             return fOut;
 
         } catch (FileNotFoundException e) {
-            System.out.println("File Not Found.");
-            System.out.println(e.getMessage());
+            System.err.println("File Not Found.");
+            System.err.println(e.getMessage());
             return null;
         } catch (IOException e1) {
-            System.out.println("Error Writing The Stream.");
-            System.out.println(e1.getMessage());
+            System.err.println("Error Writing The Stream.");
+            System.err.println(e1.getMessage());
             return null;
         } catch (Exception e2) {
-            System.out.println(e2.getMessage());
+            System.err.println(e2.getMessage());
             return null;
         }
     }
@@ -77,11 +77,11 @@ public class Zip {
             return file;
 
         } catch (NullPointerException e) {
-            System.out.println("The path is null.");
-            System.out.println(e.getMessage());
+            System.err.println("The path is null.");
+            System.err.println(e.getMessage());
             return null;
         } catch (Exception e2) {
-            System.out.println(e2.getMessage());
+            System.err.println(e2.getMessage());
             return null;
         }
     }
