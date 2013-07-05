@@ -61,7 +61,7 @@ public class Chapter implements Serializable {
     /**
      * set the number of a chapter
      */
-    public void setNumber(int number) {
+    public void setNumber(float number) {
         this.number = number;
     }
 
