@@ -7,7 +7,7 @@ package com.mti.mtispring.dataAccess;
 import java.io.Serializable;
 import java.util.List;
 /**
- *
+ * an interface containing the basic access function to access a database  using a javax.persistence.EntityManager
  * @author collin_t
  */
 public  interface IsDAO<T extends Serializable> {

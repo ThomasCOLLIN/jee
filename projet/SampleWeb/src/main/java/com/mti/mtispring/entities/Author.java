@@ -15,66 +15,82 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- *
+ * a class representing an author in the database. It can be translated in XML
  * @author REMI
  */
 @Entity
-@Table(name="author")
+@Table(name = "author")
 @XmlRootElement(name = "author")
 public class Author implements Serializable {
-        
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-	long id;
-        @Column(name="firstname")
-	String firstname;
-        @Column(name="lastname")
-	String lastname;
-        @Column(name="typeId")
-	String type;
 
-	@XmlAttribute
-	public long getId()
-	{
-		return this.id;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @Column(name = "firstname")
+    String firstname;
+    @Column(name = "lastname")
+    String lastname;
+    @Column(name = "typeId")
+    String type;
 
-	public void setId(long id)
-	{
-		this.id = id;
-	}
+    /**
+     * @return the id of the author
+     */
+    @XmlAttribute
+    public long getId() {
+        return this.id;
+    }
 
-	@XmlAttribute
-	public String getFirstname()
-	{
-		return this.firstname;
-	}
+    /**
+     * set the id of the author
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setFirstname(String firstname)
-	{
-		this.firstname = firstname;
-	}
+    /**
+     * @return the firstname of the author
+     */
+    @XmlAttribute
+    public String getFirstname() {
+        return this.firstname;
+    }
 
-	@XmlAttribute
-	public String getLastname()
-	{
-		return this.lastname;
-	}
+    /**
+     * set the firstname of the author
+     */
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
 
-	public void setLastname(String lastname)
-	{
-		this.lastname = lastname;
-	}
+    /**
+     * @return the lastname of the author
+     */
+    @XmlAttribute
+    public String getLastname() {
+        return this.lastname;
+    }
 
-	@XmlAttribute
-	public String getType()
-	{
-		return this.type;
-	}
+    /**
+     * set the lastname of the author
+     */
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
 
-	public void setType(String type)
-	{
-		this.type = type;
-	}
+    /**
+     * the type of an authors could be for exemple writter, illustrator, both, etc. 
+     * @return the type of the author
+     */
+    @XmlAttribute
+    public String getType() {
+        return this.type;
+    }
+
+    /**
+     * set the type of the author
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
 }
-

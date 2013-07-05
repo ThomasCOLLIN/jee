@@ -24,7 +24,7 @@ import javax.ws.rs.core.Response.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *
+ * Our webservices
  * @author REMI
  */
 @WebService(endpointInterface = "com.mti.mtispring.MangaService")

@@ -9,7 +9,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import com.mti.mtispring.businessManagament.MangaList;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

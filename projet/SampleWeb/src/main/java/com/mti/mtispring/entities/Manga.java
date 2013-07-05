@@ -52,6 +52,7 @@ public class Manga implements Serializable {
             joinColumns = { @JoinColumn(name="idManga")},
             inverseJoinColumns = {@JoinColumn(name="idAuthor")})
     private List<Author> authors;
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name="mangagenre",
             joinColumns = {@JoinColumn(name="idManga")},
@@ -59,7 +60,7 @@ public class Manga implements Serializable {
     private List<Genre> genres;
 
     /**
-    * get the id of the manga.
+    * @return the id of the manga.
     */
     @XmlAttribute
     public long getId() {
@@ -74,7 +75,7 @@ public class Manga implements Serializable {
     }
 
     /**
-    * get the name of the manga
+    * @return the name of the manga
     */
     @XmlAttribute
     public String getName() {
@@ -89,7 +90,7 @@ public class Manga implements Serializable {
     }
 
     /**
-    * get a description of the manga
+    * @return a description of the manga
     */
     @XmlElement(name ="description")
     public String getDescription() {
@@ -104,7 +105,7 @@ public class Manga implements Serializable {
     }
 
     /**
-    * get all the available chapters for this manga
+    * @return all the available chapters for this manga
     */
     @XmlElement(name = "chapter")
     public List<Chapter> getChapters() {
@@ -129,7 +130,7 @@ public class Manga implements Serializable {
     }
 
     /**
-    * get the author(s) of the manga.
+    * @return the author(s) of the manga.
     */
     @XmlElement(name = "author")
     public List<Author> getAuthors() {
@@ -154,7 +155,7 @@ public class Manga implements Serializable {
     }
 
     /**
-    * get the genres
+    * @return the genres
     */
     @XmlElement(name = "genre")
     public List<Genre> getGenres() {

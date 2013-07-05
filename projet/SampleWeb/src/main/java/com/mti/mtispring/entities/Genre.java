@@ -15,51 +15,49 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * A genre of manga. It allows to search or order mangas. It can be translate as an XML
+ * A genre of manga. It allows to search or order mangas. It can be translate as
+ * an XML
+ *
  * @author goldsz_c
  */
 @Entity
-@Table(name="genre")
+@Table(name = "genre")
 @XmlRootElement(name = "genre")
 public class Genre implements Serializable {
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO)
-	long id;
-        @Column(name="name")
-        String name;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    long id;
+    @Column(name = "name")
+    String name;
 
     /**
-     * get id id of the genre
+     * @return id id of the genre
      */
-	@XmlAttribute
-	public long getId()
-	{
-		return this.id;
-	}
+    @XmlAttribute
+    public long getId() {
+        return this.id;
+    }
 
-	/**
-	* set the id of the genre
-	*/
-	public void setId(long id)
-	{
-		this.id = id;
-	}
+    /**
+     * set the id of the genre
+     */
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	/**
-	* get the name of the genre
-	*/
-	@XmlAttribute
-	public String getName()
-	{
-		return this.name;
-	}
+    /**
+     * @return the name of the genre
+     */
+    @XmlAttribute
+    public String getName() {
+        return this.name;
+    }
 
-	/**
-	* @deprecated
-	* set the name of a genre. genres shouldn't be changed
-	*/
-	public void setName(String name)
-	{
-		this.name = name;
-	}
+    /**
+     * @deprecated set the name of a genre. genres shouldn't be changed
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
 }

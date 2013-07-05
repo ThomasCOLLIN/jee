@@ -9,10 +9,15 @@ import java.util.List;
 import javax.persistence.Query;
 
 /**
- *
+ * Access to the genres table of the database
  * @author collin_t
  */
 public class GenreDAO extends DAO<Genre> {
+
+    /**
+     * get a list of all the genres
+     * @return 
+     */
     @Override
     public List<Genre> getAll() {
         Query query = entityManager.createQuery("SELECT g FROM Genre g");

@@ -36,7 +36,7 @@ public class Chapter implements Serializable {
     String filePath;
 
     /**
-     * get the chapter id
+     * @return the chapter id
      */
     @XmlAttribute
     public long getId() {
@@ -51,7 +51,7 @@ public class Chapter implements Serializable {
     }
 
     /**
-     * get the number of the chapter. Unique for a manga
+     * @return the number of the chapter. Unique for a manga
      */
     @XmlAttribute
     public float getNumber() {
@@ -66,7 +66,7 @@ public class Chapter implements Serializable {
     }
 
     /**
-     * get the id of the manga the chapter belongs to
+     * @return the id of the manga the chapter belongs to
      */
     public long getMangaId() {
         return mangaId;
@@ -80,7 +80,7 @@ public class Chapter implements Serializable {
     }
 
     /**
-     * get the path of the file containing the chapter on the server
+     * @return the path of the file containing the chapter on the server
      */
     @XmlAttribute
     public String getFilePath() {

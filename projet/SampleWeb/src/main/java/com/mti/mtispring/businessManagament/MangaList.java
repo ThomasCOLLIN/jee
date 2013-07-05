@@ -5,14 +5,16 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+/**
+ * a list of mangas used to convert the result of a research to XML
+ * @author collin_t
+ */
 @XmlRootElement
 public class MangaList {
     public MangaList() {
         
     }
-    /**
-     * a list of mangas used to convert the result of a research to XML
-     */
+
     public MangaList(List<Manga> mangas) {
         this.mangas = mangas;
     }

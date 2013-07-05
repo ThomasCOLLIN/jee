@@ -9,35 +9,39 @@ import java.util.List;
 import javax.persistence.Query;
 
 /**
- *
+ * Access to the chapters table of the database
  * @author collin_t
  */
 public class ChapterDAO extends DAO<Chapter> {
 
     /**
-     * get all chapter of a manga
-     *
-     * @param mangaId id of the manga
-     * @return a list of chapter
+     * @deprecated
+     * @return a list of all chapter
      */
-    public List<Chapter> findAll(long mangaId) {
-        Query query = entityManager.createQuery("SELECT c FROM Chapter c WHERE c.mangaId LIKE :mangaId")
-                .setParameter("mangaId", mangaId);
-        return query.getResultList();
-    }
-
     @Override
     public List<Chapter> getAll() {
         Query query = entityManager.createQuery("SELECT c FROM Chapter c");
         return query.getResultList();
     }
 
+    /**
+     * get all the chapters of a manga
+     *
+     * @param mangaId id of the manga
+     * @return a list of chapter
+     */
     public List<Chapter> findByMangaId(long mangaId) {
         Query query = entityManager.createQuery("SELECT c FROM Chapter c WHERE c.mangaId LIKE :mangaId")
                 .setParameter("mangaId", mangaId);
         return (List<Chapter>) query.getResultList();
     }
 
+    /**
+     * get a list of the chapter from a manga
+     * @param mangaId id of the manga
+     * @param chaptersId ids of the chapters
+     * @return a list of chapter containing only the ones found
+     */
     public List<Chapter> findByMangaId(Long mangaId, List<Long> chaptersId) {
         Query query = entityManager.createQuery("SELECT c FROM Chapter c WHERE c.id IN (:chaptersId) AND c.mangaId LIKE :mangaId")
                 .setParameter("chaptersId", chaptersId)

@@ -12,6 +12,10 @@ import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
+/**
+ * class that handles zip archives
+ * @author collin_t
+ */
 public class Zip {
 
     /**

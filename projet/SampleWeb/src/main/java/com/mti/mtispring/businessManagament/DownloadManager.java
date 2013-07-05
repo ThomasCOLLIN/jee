@@ -7,6 +7,10 @@ import com.mti.mtispring.entities.Manga;
 import java.util.List;
 import javax.persistence.NoResultException;
 
+/**
+ * class managing download services
+ * @author collin_t
+ */
 public class DownloadManager {
 
     private MangaDAO mangaDAO;
@@ -27,6 +31,11 @@ public class DownloadManager {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * get the name of a manga
+     * @param mangaId id of the manga
+     * @return the name of the manga or null if it doesn't exist
+     */
     public String getMangaName(long mangaId) {
         try {
             Manga manga = mangaDAO.findById(mangaId);
@@ -47,10 +56,21 @@ public class DownloadManager {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    /**
+     * return a list of chapter from one manga
+     * @param mangaId the id of the manga
+     * @param chaptersId the ids of chapters
+     * @return the list of chapter
+     */
     public List<Chapter> getChaptersByManga(long mangaId, List<Long> chaptersId) {
         return chapterDAO.findByMangaId(mangaId, chaptersId);
     }
 
+    /**
+     * return all the chapters of a manga
+     * @param mangaId the id of the manga
+     * @return all the corresponding chapters
+     */ 
     public List<Chapter> getChaptersByManga(long mangaId) {
         return chapterDAO.findByMangaId(mangaId);
     }
